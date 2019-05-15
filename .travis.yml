@@ -9,4 +9,4 @@ addons:
       secure: "69c9cdf161f423c9e8a02822050c8ae2e5de6404"
 
 script: 
-  - sonar-scanner 
+  - sonar-scanner

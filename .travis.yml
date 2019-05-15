@@ -10,4 +10,4 @@ addons:
       secure: "69c9cdf161f423c9e8a02822050c8ae2e5de6404"
 
 script: 
-  - sonar-scanner
+  - sonar-scanner.bat -D"sonar.projectKey=CedricNoyel_chrono_run" -D"sonar.organization=cedricnoyel-github" -D"sonar.sources=." -D"sonar.host.url=https://sonarcloud.io" -D"sonar.login=69c9cdf161f423c9e8a02822050c8ae2e5de6404"

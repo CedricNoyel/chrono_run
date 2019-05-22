@@ -3,8 +3,20 @@ body {
     font-weight: 400;
     border-radius: 5px;
     -webkit-user-select: none;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 #electron-titlebar {
     z-index: 1000;
+}
+
+/* CARDS */
+.card {
+    margin: 20px;
 }

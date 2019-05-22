@@ -2,7 +2,10 @@
 const {app, BrowserWindow} = require('electron');
 const log = require('electron-log');
 
-let mainWindow
+let mainWindow;
+
+// Example sending var to frontend
+global.sharedObj = {myvar: "hellofrommainjs"};
 
 function createWindow () {
   mainWindow = new BrowserWindow({

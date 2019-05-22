@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ChronoRun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<div class="jumbotron">
+    <h1 class="display-4">Nouvelle course</h1>
+    <p class="lead">A</p>
+</div>
+
+
+<script>let $ = require('jquery');</script>
+<script>require('popper.js');</script>
+<script>require('bootstrap');</script>
+<script>
+    // Window Bar
+    const customTitlebar = require('custom-electron-titlebar');
+    new customTitlebar.Titlebar({
+        backgroundColor: customTitlebar.Color.fromHex('#444')
+    });
+
+</script>
+</body>
+</html>

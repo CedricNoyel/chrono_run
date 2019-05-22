@@ -1,2 +1,4 @@
 node_modules
 .idea
+chrono_run-win32-x64
+package-lock.json

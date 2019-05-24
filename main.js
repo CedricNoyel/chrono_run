@@ -31,10 +31,9 @@ function createWindow () {
     log.info('mainwindow open');
 
     const excelServices = new ExcelServices();
-    // excelServices.add_participant('2', 'GENEVE', 'Jordan', 'boss');
-    excelServices.add_participant('3', 'NOYEL', 'Cédric', 'boss');
-    excelServices.read_participants();
-
+    excelServices.get_participants(function(res){
+      console.log(res);
+    });
   });
 
   mainWindow.on('closed', function () {

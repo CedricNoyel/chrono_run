@@ -7,9 +7,8 @@ const csvWriter = createCsvWriter({
     path : path,
     fieldDelimiter: ';',
     append: true,
-    encoding: 'utf16',
     header : [
-        {id: 'dossard', title: 'Numéro de dossard'},
+        {id: 'dossard', title: 'Dossard'},
         {id: 'lastname', title: 'Nom'},
         {id: 'firstname', title: 'Prénom'},
         {id: 'team', title: 'Equipe'}
@@ -17,18 +16,21 @@ const csvWriter = createCsvWriter({
 });
 
 class ExcelServices {
-    read_participants() {
+    static get_participants(callback) {
+        var participants = [];
         fs.createReadStream(path)
             .pipe(csvParser({separator: ';'}))
             .on('data', (row) => {
-                console.log(row);
+                participants.push(row);
             })
-            .on('end', () => {
+            .on('finish', function () {
                 console.log('CSV file successfully processed');
+                // console.log(participants);
+                callback(participants);
             });
     }
 
-    add_participant(dossard, lastname, firstname, team) {
+    static add_participant(dossard, lastname, firstname, team) {
         let data = [{
             dossard: dossard,
             lastname: lastname,
@@ -39,6 +41,10 @@ class ExcelServices {
         csvWriter
             .writeRecords(data)
             .then(()=> console.log('The CSV file was written successfully'));
+    }
+
+    static find_participant(dossard) {
+
     }
 }
 

@@ -9,33 +9,6 @@
   </head>
   <body>
 
-  <!--
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Avant la course</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Départ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Arrivée</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Après la course</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-    -->
-
   <div class="jumbotron">
     <h1 class="display-4">Bienvenue sur Chrono-Run</h1>
     <p class="lead">Merci de cliquer sur un des boutons suivant pour commencer :)</p>
@@ -52,7 +25,7 @@
 
   <!-- MODAL (fenetre alert affichée au clic sur btn nouvelle course)-->
   <div id="modalNouvelleCourse" class="modal fade bd-example-modal-lg">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Créer une nouvelle course</h5>
@@ -65,7 +38,7 @@
             <br/>Souhaitez-vous tout de même continuer ?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger">Oui, supprimer la course précédente</button>
+          <a href="./nouvelle-course.html"><button id="btnAddCourse" type="button" class="btn btn-danger">Oui, supprimer la course précédente</button></a>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
         </div>
       </div>

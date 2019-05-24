@@ -19,7 +19,7 @@ function createWindow () {
     }
   })
 
-  mainWindow.loadFile(__dirname + '/app/index.html')
+  mainWindow.loadFile(__dirname + '/app/nouvelle-course.js')
   log.info('mainwindow open file' + __dirname + '/app/index.html');
 
   // mainWindow.webContents.openDevTools()

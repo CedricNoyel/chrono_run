@@ -16,6 +16,13 @@ const csvWriter = createCsvWriter({
 });
 
 class ExcelServices {
+
+
+    // const excelServices = new ExcelServices();
+    // excelServices.get_participants(function(res){
+    //     console.log(res);
+    // });
+
     static get_participants(callback) {
         var participants = [];
         fs.createReadStream(path)

@@ -1,4 +1,3 @@
-
 const {app, BrowserWindow} = require('electron');
 const log = require('electron-log');
 const ExcelServices = require('./app_server/js/ExcelServices');
@@ -29,11 +28,6 @@ function createWindow () {
     mainWindow.show();
     mainWindow.focus();
     log.info('mainwindow open');
-
-    const excelServices = new ExcelServices();
-    excelServices.get_participants(function(res){
-      console.log(res);
-    });
   });
 
   mainWindow.on('closed', function () {

@@ -50,8 +50,10 @@ class ExcelServices {
             .then(()=> console.log('The CSV file was written successfully'));
     }
 
-    static find_participant(dossard) {
-
+    static find_participant(searchedDossard) {
+        this.get_participants(function (participants) {
+            console.log(participants.filter(participant => participant.dossard == searchedDossard));
+        });
     }
 }
 

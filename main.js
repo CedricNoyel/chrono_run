@@ -28,6 +28,20 @@ function createWindow () {
     mainWindow.show();
     mainWindow.focus();
     log.info('mainwindow open');
+
+    // let participants = [
+    //   ['dossard', 'lastname', 'firstname', 'team'],
+    //   ['1', 'a', 'a', 'a'],
+    //   ['2', 'b', 'b', 'b'],
+    //   ['3', 'c', 'c', 'c'],
+    //   ['4', 'd', 'd', 'd'],
+    //   ['5', 'e', 'e', 'e']
+    // ];
+    // participants.forEach(function (participant) {
+    //   ExcelServices.add_participant(participant[0],participant[1],participant[2],participant[3]);
+    // });
+
+    ExcelServices.find_participant(4);
   });
 
   mainWindow.on('closed', function () {

@@ -1,8 +1,6 @@
-Numéro de dossard;Nom;Prénom;Equipe
-3;NOYEL;Cédric;
-3;NOYEL;Cédric;
-3;NOYEL;Cédric;
-3;NOYEL;Cédric;
-3;NOYEL;Cédric;
-3;NOYEL;Cédric;
-3;NOYEL;Cédric;
+dossard;lastname;firstname;team
+1;a;a;a
+2;b;b;b
+5;e;e;e
+3;c;c;c
+4;d;d;d

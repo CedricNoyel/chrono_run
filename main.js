@@ -1,6 +1,6 @@
-
 const {app, BrowserWindow} = require('electron');
 const log = require('electron-log');
+const ExcelServices = require('./app_server/js/ExcelServices');
 
 let mainWindow;
 

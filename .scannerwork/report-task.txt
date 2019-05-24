@@ -1,7 +1,0 @@
-organization=cedricnoyel-github
-projectKey=CedricNoyel_chrono_run
-serverUrl=https://sonarcloud.io
-serverVersion=7.8.0.24676
-dashboardUrl=https://sonarcloud.io/dashboard?id=CedricNoyel_chrono_run
-ceTaskId=AWq7hEXWcMoWyatDOzmF
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWq7hEXWcMoWyatDOzmF

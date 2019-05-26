@@ -17,17 +17,32 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true
     }
-  })
+  });
 
   mainWindow.loadFile(__dirname + '/app/nouvelle-course.html')
   log.info('mainwindow open file' + __dirname + '/app/index.html');
 
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   mainWindow.on('ready-to-show', function() {
     mainWindow.show();
     mainWindow.focus();
     log.info('mainwindow open');
+    ExcelServices.createCsv();
+
+    // let participants = [
+    //   ['1', 'a', 'a', 'a'],
+    //   ['2', 'b', 'b', 'b'],
+    //   ['3', 'c', 'c', 'c'],
+    //   ['4', 'd', 'd', 'd'],
+    //   ['5', 'e', 'e', 'e']
+    // ];
+    // participants.forEach(function (participant) {
+    //   ExcelServices.addParticipant(participant[0],participant[1],participant[2],participant[3]);
+    // });
+
+
+
   });
 
   mainWindow.on('closed', function () {

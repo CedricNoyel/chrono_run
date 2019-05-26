@@ -65,6 +65,7 @@
 <script>let $ = require('jquery');</script>
 <script>require('popper.js');</script>
 <script>require('bootstrap');</script>
+<script>const ExcelServices = require('../app_server/js/ExcelServices');</script>
 <!-- <script>require('flipclock');</script> -->
 <script>
     // Window Bar
@@ -74,14 +75,21 @@
     });
 
 
-    $('#btn-ajout-coureur').on('click', function(){
+    $('#btn-ajout-coureur').on('click', function () {
         let nom_equipe = $('#form-equipe').val();
-        let coureurs = [];
-        for (i=1; i <= 5; i++) {
-            coureurs.push($('#num-coureur-' + i).val());
+        var date = new Date();
+        var timestamp = date.getTime();
+
+        for (i = 1; i <= 5; i++) {
+            let dossardParticipant = $('#num-coureur-' + i).val();
+            if (dossardParticipant) {
+                ExcelServices.addStartTime(dossardParticipant, timestamp);
+                $('#num-coureur-' + i).val('');
+            }
         }
-        alert("TODO: Ajout coureurs équipe " + nom_equipe + "à l'excel")
-    });
+        alert("Le temps de départ des coureurs à bien été ajouté.");
+
+    })
 
 </script>
 </body>

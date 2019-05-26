@@ -29,6 +29,7 @@
         </ul>
     </div>
 </nav>
+<div class="alert alert-success" role="alert"></div>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -87,7 +88,11 @@
     $('#btn-ajout-coureur').on('click', function(){
         let coureurs = [];
         for (i=1; i <= 5; i++) {
-            coureurs.push($('#num-coureur-' + i).val());
+            if (isInputCorrect("dossard", coureurs[i])) {
+                coureurs.push($('#num-coureur-' + i).val());
+            } else {
+                $('.alert').alert()
+            }
         }
 
         let Data = {

@@ -1,6 +1,7 @@
 
 const {app, BrowserWindow} = require('electron');
 const log = require('electron-log');
+const {ipcMain} = require('electron'); // get html events
 
 let mainWindow;
 
@@ -19,7 +20,7 @@ function createWindow () {
     }
   })
 
-  mainWindow.loadFile(__dirname + '/app/nouvelle-course.html')
+  mainWindow.loadFile(__dirname + '/app/arrive.html')
   log.info('mainwindow open file' + __dirname + '/app/index.html');
 
   mainWindow.webContents.openDevTools()
@@ -46,3 +47,26 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   if (mainWindow === null) createWindow()
 })
+
+// CONTROLLER
+ipcMain
+    .on('arrivee-add-coureur', (event, arg) => {
+      // Displays the object sent from the renderer process:
+      //{
+      //    message: "Hi",
+      //    someData: "Let's go"
+      //}
+      console.log(
+          arg
+      );
+    })
+    .on('depart-add-equipe', (event, arg) => {
+      // Displays the object sent from the renderer process:
+      //{
+      //    message: "Hi",
+      //    someData: "Let's go"
+      //}
+      console.log(
+          arg
+      );
+    });

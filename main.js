@@ -2,6 +2,7 @@
 const {app, BrowserWindow} = require('electron');
 const log = require('electron-log');
 const {ipcMain} = require('electron'); // get html events
+const ExcelServices = require('./app_server/js/ExcelServices');
 
 let mainWindow;
 
@@ -18,17 +19,32 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true
     }
-  })
+  });
 
   mainWindow.loadFile(__dirname + '/app/arrive.html')
   log.info('mainwindow open file' + __dirname + '/app/index.html');
 
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   mainWindow.on('ready-to-show', function() {
     mainWindow.show();
     mainWindow.focus();
     log.info('mainwindow open');
+    ExcelServices.createCsv();
+
+    // let participants = [
+    //   ['1', 'a', 'a', 'a'],
+    //   ['2', 'b', 'b', 'b'],
+    //   ['3', 'c', 'c', 'c'],
+    //   ['4', 'd', 'd', 'd'],
+    //   ['5', 'e', 'e', 'e']
+    // ];
+    // participants.forEach(function (participant) {
+    //   ExcelServices.addParticipant(participant[0],participant[1],participant[2],participant[3]);
+    // });
+
+
+
   });
 
   mainWindow.on('closed', function () {
@@ -50,23 +66,13 @@ app.on('activate', function () {
 
 // CONTROLLER
 ipcMain
-    .on('arrivee-add-coureur', (event, arg) => {
-      // Displays the object sent from the renderer process:
-      //{
-      //    message: "Hi",
-      //    someData: "Let's go"
-      //}
-      console.log(
-          arg
-      );
+    .on('end-add-participant', (event, arg) => {
+      let currentTimestamp = new Date().getTime();
+      ExcelServices.addStopTime(arg, currentTimestamp);
     })
-    .on('depart-add-equipe', (event, arg) => {
-      // Displays the object sent from the renderer process:
-      //{
-      //    message: "Hi",
-      //    someData: "Let's go"
-      //}
-      console.log(
-          arg
-      );
+    .on('start-add-participants', (event, arg) => {
+      let currentTimestamp = new Date().getTime();
+      arg.forEach(function (participantNumber) {
+        ExcelServices.addStartTime(participantNumber, currentTimestamp);
+      });
     });

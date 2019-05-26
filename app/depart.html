@@ -84,23 +84,24 @@
         backgroundColor: customTitlebar.Color.fromHex('#444')
     });
 
+    $('input[type=tel]').on('keypress',function (key) {
+        let regex = new RegExp('[0-9]');
+        if(!regex.test(key.key)) {
+            return false;
+        }
+    });
 
     $('#btn-ajout-coureur').on('click', function(){
-        let coureurs = [];
+        let participantsNumber = [];
         for (i=1; i <= 5; i++) {
-            if (isInputCorrect("dossard", coureurs[i])) {
-                coureurs.push($('#num-coureur-' + i).val());
-            } else {
-                $('.alert').alert()
+            let participantNumber = $('#num-coureur-' + i).val();
+            if(participantNumber) {
+                participantsNumber.push(participantNumber);
+                $('#num-coureur-' + i).val('');
+                alert('Le temps de départ des coureurs à bien été ajouté.');
             }
         }
-
-        let Data = {
-            equipe: $('#form-equipe').val(),
-            someData: coureurs
-        };
-        ipcRenderer.send('depart-add-equipe', Data); // SEND TO BACKEND
-        alert("TODO: Ajout coureurs équipe " + nom_equipe + "à l'excel")
+        ipcRenderer.send('start-add-participants', participantsNumber);
     });
 
 </script>

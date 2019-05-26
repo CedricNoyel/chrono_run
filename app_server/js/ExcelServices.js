@@ -17,13 +17,14 @@ const csvWriter = createCsvWriter({
 
 class ExcelServices {
 
+    static createCsvFile() {
+        csvGenerator({
+            columns: ['int', 'bool'],
+            length: 2
+        });
+    }
 
-    // const excelServices = new ExcelServices();
-    // excelServices.get_participants(function(res){
-    //     console.log(res);
-    // });
-
-    static get_participants(callback) {
+    static getParticipants(callback) {
         var participants = [];
         fs.createReadStream(path)
             .pipe(csvParser({separator: ';'}))
@@ -32,12 +33,11 @@ class ExcelServices {
             })
             .on('finish', function () {
                 console.log('CSV file successfully processed');
-                // console.log(participants);
                 callback(participants);
             });
     }
 
-    static add_participant(dossard, lastname, firstname, team) {
+    static addParticipant(dossard, lastname, firstname, team) {
         let data = [{
             dossard: dossard,
             lastname: lastname,
@@ -50,10 +50,16 @@ class ExcelServices {
             .then(()=> console.log('The CSV file was written successfully'));
     }
 
-    static find_participant(searchedDossard) {
+    static findParticipant(searchedDossard, callback) {
         this.get_participants(function (participants) {
-            console.log(participants.filter(participant => participant.dossard == searchedDossard));
+            callback(participants.filter(participant => participant.dossard == searchedDossard));
         });
+    }
+
+    static findTeamParticipants(teamName, callback) {
+        this.get_participants(function (participants) {
+            callback(participants.filter(participant => participant.team.startsWith(teamName)));
+        })
     }
 }
 

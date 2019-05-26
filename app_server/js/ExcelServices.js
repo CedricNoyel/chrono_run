@@ -2,9 +2,31 @@ const csvParser = require('csv-parser');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = require('fs');
 
-const path = 'app_server/excels/test.csv';
-const csvWriter = createCsvWriter({
-    path : path,
+const pathCsvStart = 'app_server/excels/start.csv';
+const csvWriterStart = createCsvWriter({
+    path : pathCsvStart,
+    fieldDelimiter: ';',
+    append: true,
+    header : [
+        {id: 'dossard', title: 'Dossard'},
+        {id: 'time', title: 'Temps'}
+    ]
+});
+
+const pathCsvStop = 'app_server/excels/end.csv';
+const csvWriterStop = createCsvWriter({
+    path : pathCsvStop,
+    fieldDelimiter: ';',
+    append: true,
+    header : [
+        {id: 'dossard', title: 'Dossard'},
+        {id: 'time', title: 'Temps'}
+    ]
+});
+
+const pathCsvParticipants = 'app_server/excels/participants.csv';
+const csvWriterParticipants = createCsvWriter({
+    path : pathCsvParticipants,
     fieldDelimiter: ';',
     append: true,
     header : [
@@ -17,16 +39,43 @@ const csvWriter = createCsvWriter({
 
 class ExcelServices {
 
-    static createCsvFile() {
-        csvGenerator({
-            columns: ['int', 'bool'],
-            length: 2
-        });
+    /**
+     * Create the different CSV if they do not exist
+     */
+    static createCsv() {
+        //Check if start.csv exist, if not create it
+        try {
+            fs.statSync(pathCsvStart);
+        } catch (error) {
+            if(error.code === 'ENOENT') {
+                ExcelServices.addStartTime('dossard', 'time');
+            }
+        }
+        //Check if start.csv exist, if not create it
+        try {
+            fs.statSync(pathCsvStop);
+        } catch (error) {
+            if(error.code === 'ENOENT') {
+                ExcelServices.addStopTime('dossard', 'time');
+            }
+        }
+        //Check if participants.csv exist, if not create it
+        try {
+            fs.statSync(pathCsvParticipants);
+        } catch (error) {
+            if(error.code === 'ENOENT') {
+                ExcelServices.addParticipant('dossard', 'lastname', 'firstname', 'team');
+            }
+        }
     }
 
+    /**
+     *  Return the list of the participants
+     * @param callback - function
+     */
     static getParticipants(callback) {
         var participants = [];
-        fs.createReadStream(path)
+        fs.createReadStream(pathCsvParticipants)
             .pipe(csvParser({separator: ';'}))
             .on('data', (row) => {
                 participants.push(row);
@@ -37,6 +86,13 @@ class ExcelServices {
             });
     }
 
+    /**
+     * Add a participant in the csv file of participants
+     * @param dossard - dossard number
+     * @param lastname - lastname of the participant
+     * @param firstname - firstname of the participant
+     * @param team - team name of the participant
+     */
     static addParticipant(dossard, lastname, firstname, team) {
         let data = [{
             dossard: dossard,
@@ -45,21 +101,50 @@ class ExcelServices {
             team: team
         }];
 
-        csvWriter
-            .writeRecords(data)
-            .then(()=> console.log('The CSV file was written successfully'));
+        csvWriterParticipants
+            .writeRecords(data);
     }
 
+    /**
+     * Find the participant by his dossard number
+     * @param searchedDossard - dossard number
+     * @param callback - callback function
+     */
     static findParticipant(searchedDossard, callback) {
-        this.get_participants(function (participants) {
+        this.getParticipants(function (participants) {
             callback(participants.filter(participant => participant.dossard == searchedDossard));
         });
     }
 
+    /**
+     * Find the participants in a specific team
+     * @param teamName
+     * @param callback
+     */
     static findTeamParticipants(teamName, callback) {
-        this.get_participants(function (participants) {
+        this.getParticipants(function (participants) {
             callback(participants.filter(participant => participant.team.startsWith(teamName)));
         })
+    }
+
+    static addStartTime(dossard, time) {
+        let data = [{
+            dossard: dossard,
+            time: time
+        }];
+
+        csvWriterStart
+            .writeRecords(data);
+    }
+
+    static addStopTime(dossard, time) {
+        let data = [{
+            dossard: dossard,
+            time: time
+        }];
+
+        csvWriterStop
+            .writeRecords(data);
     }
 }
 

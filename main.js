@@ -11,18 +11,18 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     show: false,
     frame: false,
-    width: 960,
-    height: 720,
+    width: 1060,
+    height: 820,
     icon: __dirname + '/app/img/logo.png',
     webPreferences: {
       nodeIntegration: true
     }
   })
 
-  mainWindow.loadFile(__dirname + '/app/index.html')
+  mainWindow.loadFile(__dirname + '/app/nouvelle-course.html')
   log.info('mainwindow open file' + __dirname + '/app/index.html');
 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   mainWindow.on('ready-to-show', function() {
     mainWindow.show();

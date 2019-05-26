@@ -2,6 +2,7 @@
 const {app, BrowserWindow} = require('electron');
 const log = require('electron-log');
 const {ipcMain} = require('electron'); // get html events
+const ExcelServices = require('./app_server/js/ExcelServices');
 
 let mainWindow;
 
@@ -65,23 +66,13 @@ app.on('activate', function () {
 
 // CONTROLLER
 ipcMain
-    .on('arrivee-add-coureur', (event, arg) => {
-      // Displays the object sent from the renderer process:
-      //{
-      //    message: "Hi",
-      //    someData: "Let's go"
-      //}
-      console.log(
-          arg
-      );
+    .on('end-add-participant', (event, arg) => {
+      let currentTimestamp = new Date().getTime();
+      ExcelServices.addStopTime(arg, currentTimestamp);
     })
-    .on('depart-add-equipe', (event, arg) => {
-      // Displays the object sent from the renderer process:
-      //{
-      //    message: "Hi",
-      //    someData: "Let's go"
-      //}
-      console.log(
-          arg
-      );
+    .on('start-add-participants', (event, arg) => {
+      let currentTimestamp = new Date().getTime();
+      arg.forEach(function (participantNumber) {
+        ExcelServices.addStartTime(participantNumber, currentTimestamp);
+      });
     });

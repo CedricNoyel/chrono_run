@@ -4,6 +4,7 @@ let $ = require('jquery');
 require('popper.js');
 require('bootstrap');
 require('flipclock');
+const ExcelServices = require('../app_server/js/ExcelServices');
 
 // window titlebar
 const customTitlebar = require('custom-electron-titlebar');
@@ -12,14 +13,3 @@ const customTitlebar = require('custom-electron-titlebar');
 const { ipcRenderer } = require('electron');
 const {remote} = require('electron');
 
-
-function isInputCorrect(inputType, input) {
-    if (inputType == "dossard") {
-        if (!isNaN(input)) {
-            if (Number.isInteger(input) && input >= 0 && input <= 9999) {
-                return true
-            }
-        }
-    }
-    return false
-}

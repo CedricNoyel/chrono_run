@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ChronoRun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/needed.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="depart.html">Départ</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Arrivée</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="alert alert-success" role="alert"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header"></div>
+                <div class="card-body">
+                    <div id="arrive-form-container" class="d-flex flex-column">
+                        <!-- Ici ajouté les formulaires de fin de courses -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Window Bar
+    new customTitlebar.Titlebar({
+        backgroundColor: customTitlebar.Color.fromHex('#444')
+    });
+
+    function arriveeCoureur(idCoureur) {
+        let numDossard = $("#input-arrivee-coureur-"+ idCoureur).val();
+        if (isInputCorrect("dossard", numDossard)) {
+            ipcRenderer.send('arrivee-add-coureur', numDossard); // SEND TO BACKEND
+            alert("TODO: AJOUT EXCEL id: " + idCoureur + "arrivee coureur " + numDossard);
+        } else {
+            $('.alert').alert()
+        }
+    }
+
+    function addFormArriveeCoureur(idCoureur) {
+        let label = '<label class="mr-sm-2">Arrivée du coureur n° </label>';
+        let input = '<input type="tel" class="form-control mb-2 mr-sm-2" id="input-arrivee-coureur-' + idCoureur + '" maxlength="4">';
+        let btn = '<button type="submit" class="btn btn-primary mb-2" onclick="arriveeCoureur(' + idCoureur + ')">Fin</button>';
+        let form = document.createElement("div")
+        form.className = "p-2 d-flex justify-content-center form-inline";
+        form.innerHTML = label + input + btn;
+        $('#arrive-form-container').append(form);
+    }
+
+    var idCoureur = 0;
+    $(document).ready(function(){
+        for (idCoureur; idCoureur < 5; idCoureur++) {
+            addFormArriveeCoureur(idCoureur);
+        }
+    })
+</script>
+</body>
+</html>

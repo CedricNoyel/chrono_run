@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <script src="./js/needed.js"></script>
     <title>ChronoRun</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -38,24 +39,18 @@
             <br/>Souhaitez-vous tout de même continuer ?</p>
         </div>
         <div class="modal-footer">
-          <a href="./nouvelle-course.html"><button id="btnAddCourse" type="button" class="btn btn-danger">Oui, supprimer la course précédente</button></a>
+          <a href="depart.html"><button id="btnAddCourse" type="button" class="btn btn-danger">Oui, supprimer la course précédente</button></a>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
         </div>
       </div>
     </div>
   </div>
-<script>let $ = require('jquery');</script>
-<script>require('popper.js');</script>
-<script>require('bootstrap');</script>
 <script>
-  // Window Bar
-  const customTitlebar = require('custom-electron-titlebar');
   new customTitlebar.Titlebar({
     backgroundColor: customTitlebar.Color.fromHex('#444')
   });
 
   // Example: Receiving data from main.js
-  const {remote} = require('electron');
   $('.jumbotron').append(remote.getGlobal('sharedObj').myvar);
 
 </script>

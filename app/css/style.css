@@ -15,3 +15,7 @@ body {
 ::-webkit-scrollbar {
     width: 0px;
 }
+
+nav {
+    margin-bottom: 20px;
+}

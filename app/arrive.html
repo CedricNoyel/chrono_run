@@ -47,11 +47,11 @@
 
     function arriveeCoureur(idCoureur) {
         let numDossard = $("#input-arrivee-coureur-"+ idCoureur).val();
-        if (isInputCorrect("dossard", numDossard)) {
-            ipcRenderer.send('arrivee-add-coureur', numDossard); // SEND TO BACKEND
-            alert("TODO: AJOUT EXCEL id: " + idCoureur + "arrivee coureur " + numDossard);
+        if (numDossard) {
+            ipcRenderer.send('end-add-participant', numDossard);
+            $("#input-arrivee-coureur-"+ idCoureur).val('');
         } else {
-            $('.alert').alert()
+            $('.alert').alert();
         }
     }
 
@@ -59,10 +59,18 @@
         let label = '<label class="mr-sm-2">Arrivée du coureur n° </label>';
         let input = '<input type="tel" class="form-control mb-2 mr-sm-2" id="input-arrivee-coureur-' + idCoureur + '" maxlength="4">';
         let btn = '<button type="submit" class="btn btn-primary mb-2" onclick="arriveeCoureur(' + idCoureur + ')">Fin</button>';
-        let form = document.createElement("div")
+        let form = document.createElement("div");
+
         form.className = "p-2 d-flex justify-content-center form-inline";
         form.innerHTML = label + input + btn;
         $('#arrive-form-container').append(form);
+        $("#input-arrivee-coureur-"+idCoureur).on('keypress',function (key) {
+            let regex = new RegExp('[0-9]');
+            if(!regex.test(key.key)) {
+                return false;
+            }
+        });
+
     }
 
     var idCoureur = 0;

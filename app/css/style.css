@@ -1,10 +1,21 @@
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
-    border-radius: 5px;
     -webkit-user-select: none;
 }
 
 #electron-titlebar {
     z-index: 1000;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+nav {
+    margin-bottom: 20px;
 }

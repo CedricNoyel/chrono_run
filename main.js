@@ -3,6 +3,8 @@ const {app, BrowserWindow} = require('electron');
 const log = require('electron-log');
 const {ipcMain} = require('electron'); // get html events
 const ExcelServices = require('./app_server/js/ExcelServices');
+const {convert} = require('xlsx-converter');
+
 
 let mainWindow;
 
@@ -31,7 +33,7 @@ function createWindow () {
     mainWindow.focus();
     log.info('mainwindow open');
     ExcelServices.createCsv();
-
+    ExcelServices.convertXlsxToCsv();
     // let participants = [
     //   ['1', 'a', 'a', 'a'],
     //   ['2', 'b', 'b', 'b'],

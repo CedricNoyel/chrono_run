@@ -1,6 +1,7 @@
 const csvParser = require('csv-parser');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = require('fs');
+const convert = require('xlsx-converter');
 
 const pathCsvStart = 'app_server/excels/start.csv';
 const csvWriterStart = createCsvWriter({
@@ -37,7 +38,31 @@ const csvWriterParticipants = createCsvWriter({
     ]
 });
 
+const pathXlsxParticipants = "app_server/excels/template_chrono_run.xlsx";
+
 class ExcelServices {
+
+
+    //Lis le fichier .xlsx, et add une ligne dans participants.csv pour chaque participant
+    static convertXlsxToCsv(){
+        convert.convert(pathXlsxParticipants).then(result => {
+            var index = 2;
+            while(result[index.toString()]!=undefined){
+                var numeroDossard = result[index.toString()][0];
+                var nom = result[index.toString()][1];
+                var prenom = result[index.toString()][2];
+                var nomEquipe = result[index.toString()][3];
+
+                // console.log("numero : ", result[index.toString()][0]);
+                // console.log("nom : ", result[index.toString()][1]);
+                // console.log("prenom : ", result[index.toString()][2]);
+                // console.log("equipe : ", result[index.toString()][3]);
+
+                ExcelServices.addParticipant(numeroDossard, nom, prenom, nomEquipe);
+                index++;
+            }
+        });
+    }
 
     /**
      * Create the different CSV if they do not exist

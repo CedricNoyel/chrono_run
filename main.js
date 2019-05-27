@@ -70,9 +70,19 @@ ipcMain
       let currentTimestamp = new Date().getTime();
       ExcelServices.addStopTime(arg, currentTimestamp);
     })
+    .on('add-team', (event, arg) => {
+      console.log("TODO: " + arg)
+    })
+    .on('add-participant', (event, arg) => {
+      console.log("TODO: " + arg)
+    })
     .on('start-add-participants', (event, arg) => {
       let currentTimestamp = new Date().getTime();
-      arg.forEach(function (participantNumber) {
-        ExcelServices.addStartTime(participantNumber, currentTimestamp);
-      });
+      ExcelServices.addStartTime(arg, currentTimestamp);
+    })
+    .on('start-add-team', (event, arg) => {
+      let currentTimestamp = new Date().getTime();
+      // TODO RECUPERER LES GENS DANS L'EQUIPE ET LES AJOUTER AU DEPART
+      console.log("TODO: " + arg)
+      ExcelServices.addStartTime(arg, currentTimestamp);
     });

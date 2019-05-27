@@ -164,17 +164,39 @@
         }
     });
 
-    $('#btn-ajout-coureur').on('click', function(){
+    $("#btn-start-participant").on('click', function(){
+        ipcRenderer.send('start-add-participants', $('#input-start-participant').val());
+    })
+
+    $("#btn-start-team").on('click', function(){
+        ipcRenderer.send('start-add-team', $('#input-start-team').val());
+    })
+
+    $("#btn-add-participant").on('click', function(){
+        let participant = {
+            name: $('#input-add-participant-nom').val(),
+            forname: $('#input-add-participant-prenom').val(),
+            dossard: $('#input-add-participant-dossard').val(),
+            team: $('#input-add-participant-team').val()
+
+        }
+        ipcRenderer.send('add-participant', participant);
+    })
+
+    $('#btn-create-team').on('click', function(){
         let participantsNumber = [];
         for (i=1; i <= 5; i++) {
-            let participantNumber = $('#num-coureur-' + i).val();
+            let participantNumber = $('#input-team-add-' + i).val();
             if(participantNumber) {
                 participantsNumber.push(participantNumber);
                 $('#num-coureur-' + i).val('');
-                alert('Le temps de départ des coureurs à bien été ajouté.');
             }
         }
-        ipcRenderer.send('start-add-participants', participantsNumber);
+        let data = {
+            team_name: $('#input-create-team').val(),
+            participants: participantsNumber
+        }
+        ipcRenderer.send('add-team', data);
     });
 
 </script>

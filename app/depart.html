@@ -166,21 +166,26 @@
 
     $("#btn-start-participant").on('click', function(){
         ipcRenderer.send('start-add-participants', $('#input-start-participant').val());
+        $('#input-start-participant').val('')
     })
 
     $("#btn-start-team").on('click', function(){
         ipcRenderer.send('start-add-team', $('#input-start-team').val());
+        $('#input-start-team').val('');
     })
 
     $("#btn-add-participant").on('click', function(){
         let participant = {
-            name: $('#input-add-participant-nom').val(),
-            forname: $('#input-add-participant-prenom').val(),
             dossard: $('#input-add-participant-dossard').val(),
+            lastname: $('#input-add-participant-nom').val(),
+            firstname: $('#input-add-participant-prenom').val(),
             team: $('#input-add-participant-team').val()
-
-        }
+        };
         ipcRenderer.send('add-participant', participant);
+        $('#input-add-participant-dossard').val('');
+        $('#input-add-participant-nom').val('');
+        $('#input-add-participant-prenom').val('');
+        $('#input-add-participant-team').val('');
     })
 
     $('#btn-create-team').on('click', function(){

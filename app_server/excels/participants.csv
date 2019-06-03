@@ -1,9 +1,3 @@
 dossard;lastname;firstname;team
-1;a;a;a
-2;b;b;b
-3;c;c;c
-4;d;d;d
-5;e;e;e
-12345;Le Galloudec;Samy;FIL
-12346;Genève;Jordan;FIL
-12347;Noyel;Cédric;FIL
+5;geneve;jordan;koala
+6;noyel;cedric;koala

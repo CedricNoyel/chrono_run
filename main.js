@@ -23,7 +23,7 @@ function createWindow () {
     }
   });
 
-  mainWindow.loadFile(__dirname + '/app/arrive.html')
+  mainWindow.loadFile(__dirname + '/app/depart.html')
   log.info('mainwindow open file' + __dirname + '/app/index.html');
 
   // mainWindow.webContents.openDevTools()
@@ -72,9 +72,21 @@ ipcMain
       let currentTimestamp = new Date().getTime();
       ExcelServices.addStopTime(arg, currentTimestamp);
     })
+    .on('add-team', (event, arg) => {
+        console.log("TODO add participant to a team");
+    })
+    .on('add-participant', (event, arg) => {
+      ExcelServices.addParticipant(arg.dossard, arg.lastname, arg.firstname, arg.team);
+    })
     .on('start-add-participants', (event, arg) => {
       let currentTimestamp = new Date().getTime();
-      arg.forEach(function (participantNumber) {
-        ExcelServices.addStartTime(participantNumber, currentTimestamp);
+      ExcelServices.addStartTime(arg, currentTimestamp);
+    })
+    .on('start-add-team', (event, arg) => {
+      let currentTimestamp = new Date().getTime();
+      ExcelServices.findTeamParticipants(arg, function (res) {
+        res.forEach(function (participant) {
+          ExcelServices.addStartTime(participant.dossard, currentTimestamp);
+        })
       });
     });

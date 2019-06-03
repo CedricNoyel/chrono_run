@@ -106,7 +106,6 @@ class ExcelServices {
                 participants.push(row);
             })
             .on('finish', function () {
-                console.log('CSV file successfully processed');
                 callback(participants);
             });
     }
@@ -148,7 +147,7 @@ class ExcelServices {
      */
     static findTeamParticipants(teamName, callback) {
         this.getParticipants(function (participants) {
-            callback(participants.filter(participant => participant.team.startsWith(teamName)));
+            callback(participants.filter(participant => participant.team === teamName));
         })
     }
 
